@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="/w3css/4/w3.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+
+<body ng-app="myApp" ng-controller="userCtrl">
+
+  <div class="w3-container">
+  
+  <h2 class="w3-pale-green w3-padding">User Records Data Table</h2><hr />
+  
+  <table class="w3-table w3-bordered w3-striped">
+    <tr class="w3-lime">
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Skills</th>
+      <th>Action</th>
+    </tr>
+    <tr ng-repeat="user in users">
+      <td>{{ user.fName }}</td>
+      <td>{{ user.lName }}</td>
+      <td ng-repeat="x in skills">{{x}}</td>
+      <td>
+        <button class="w3-btn w3-ripple w3-yellow" ng-click="editUser(user.id)">&#9998; </button>
+        <button class="w3-btn w3-ripple w3-red" ng-click="removeItem(user.id)">X</button>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <button class="w3-btn w3-green w3-ripple w3-margin-bottom" ng-click="editUser('new')" ng-model="hideform">&#9998; Create New User</button>
+  
+  <form class="user" ng-hide="hideform">
+    <h3 ng-show="edit">Create New User:</h3>
+    <h3 ng-hide="edit">Edit User:</h3>
+      <label>First Name:</label>
+      <input class="w3-input w3-border" type="text" ng-model="fName" ng-disabled="!edit" placeholder="First Name" pattern="[a-zA-Z]*">
+    <br>
+      <label>Last Name:</label>
+      <input class="w3-input w3-border" type="text" ng-model="lName" ng-disabled="!edit" placeholder="Last Name" pattern="[a-zA-Z]*">
+    <br>
+      <label>Password:</label>
+      <input class="w3-input w3-border" type="password" ng-model="passw1" placeholder="Password" pattern="[a-zA-Z0-9]*{8}">
+    <br>
+      <label>Confirm Password:</label>
+      <input class="w3-input w3-border" type="password" ng-model="passw2" placeholder="Confirm Password" pattern="[a-zA-Z0-9]*{8}">
+    <br>
+    <label>Skills:</label>
+    <input placeholder="Add Your Skills here..." ng-model="addSkill" class="w3-input w3-border w3-padding">
+    <button ng-click="addItem()" class="w3-btn w3-padding w3-blue w3-margin-top">+</button>
+    <span>
+      <span ng-repeat="x in skills">{{x}}
+        <span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">X
+        </span>
+      </span>
+    </span>
+    <p class="w3-text-red">{{errortext}}</p>
+    <br />
+    
+    <button class="w3-btn w3-green w3-ripple w3-margin-bottom w3-margin-top" ng-disabled="error || incomplete">&#10004; Add User</button>
+    <button class="w3-btn w3-green w3-ripple w3-margin-bottom w3-margin-top" ng-hide="editButton" ng-disabled="error || incomplete">&#10004; Update</button>
+  </form>
+  
+  </div>
+  
+  <script src= "myUsers.js"></script>
+  
+  </body>
+  </html>
+  
